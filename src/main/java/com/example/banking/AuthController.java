@@ -1,3 +1,4 @@
+
 package com.example.banking;
 
 import java.util.Optional;
@@ -7,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 // Allow frontend at http://localhost:5173 (Vite default) to access this backend
-@CrossOrigin(origins = "http://localhost:5173") 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -27,10 +28,9 @@ public class AuthController {
         }
     }
 
-    // Signup endpoint (optional)
+    // Signup endpoint
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody LoginRequest request) {
-        // Check if username already exists
         if (userRepo.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity.status(400).body("Username already exists");
         }

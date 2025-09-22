@@ -7,15 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 // Allow frontend at http://localhost:5173 (Vite default) to access this backend
-@CrossOrigin(origins = "http://localhost:5173") 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/backend") // <-- changed base path
 public class BACKEND {
 
     @Autowired
     private UserRepo userRepo;
 
-    // Login endpoint
+    // Alternate login endpoint
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Optional<User> userOpt = userRepo.findByUsername(request.getUsername());
@@ -27,10 +27,9 @@ public class BACKEND {
         }
     }
 
-    // Signup endpoint (optional)
+    // Alternate si 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody LoginRequest request) {
-        // Check if username already exists
         if (userRepo.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity.status(400).body("Username already exists");
         }

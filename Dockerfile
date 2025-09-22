@@ -1,5 +1,5 @@
-# Use a Java 21 JDK base image
-FROM eclipse-temurin:21-jdk-jammy
+# Use a Java 17 JDK base image
+FROM eclipse-temurin:17-jdk-jammy
 
 # Set working directory in the container
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-# Build the project using Maven
+# Install Maven and build the project
 RUN apt-get update && \
     apt-get install -y maven && \
     mvn clean package -DskipTests
@@ -17,7 +17,7 @@ RUN apt-get update && \
 COPY target/*.jar app.jar
 
 # Expose the backend port
-EXPOSE 8082
+EXPOSE 8003
 
 # Command to run the Spring Boot application
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
